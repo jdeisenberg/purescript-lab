@@ -1545,15 +1545,14 @@ var PS = {};
           if (v instanceof Data_Maybe.Nothing) {
               return Data_Maybe.Nothing.value;
           };
-          throw new Error("Failed pattern match at Main line 44, column 5 - line 49, column 30: " + [ v.constructor.name ]);
+          throw new Error("Failed pattern match at Main line 48, column 5 - line 53, column 30: " + [ v.constructor.name ]);
       };
   };
   var respondToClick = function (evt) {
       return function __do() {
-          var v = getElementBySelector("#output")();
-          var v1 = getNumericValue("#input1")();
-          var v2 = getNumericValue("#input2")();
-          var avg = Control_Apply.lift2(Data_Maybe.applyMaybe)(Data_EuclideanRing.div(Data_EuclideanRing.euclideanRingNumber))(Control_Apply.lift2(Data_Maybe.applyMaybe)(Data_Semiring.add(Data_Semiring.semiringNumber))(v1)(v2))(new Data_Maybe.Just(2.0));
+          var v = getNumericValue("#input1")();
+          var v1 = getNumericValue("#input2")();
+          var avg = Control_Apply.lift2(Data_Maybe.applyMaybe)(Data_EuclideanRing.div(Data_EuclideanRing.euclideanRingNumber))(Control_Apply.lift2(Data_Maybe.applyMaybe)(Data_Semiring.add(Data_Semiring.semiringNumber))(v)(v1))(new Data_Maybe.Just(2.0));
           var avgText = (function () {
               if (avg instanceof Data_Maybe.Just) {
                   return Data_Show.show(Data_Show.showNumber)(avg.value0);
@@ -1561,15 +1560,16 @@ var PS = {};
               if (avg instanceof Data_Maybe.Nothing) {
                   return "";
               };
-              throw new Error("Failed pattern match at Main line 58, column 9 - line 61, column 3: " + [ avg.constructor.name ]);
+              throw new Error("Failed pattern match at Main line 67, column 9 - line 70, column 3: " + [ avg.constructor.name ]);
           })();
-          if (v instanceof Data_Maybe.Just) {
-              return DOM_Classy_Node.setTextContent(DOM_Classy_Node.isNodeElement)(avgText)(v.value0)();
+          var v2 = getElementBySelector("#output")();
+          if (v2 instanceof Data_Maybe.Just) {
+              return DOM_Classy_Node.setTextContent(DOM_Classy_Node.isNodeElement)(avgText)(v2.value0)();
           };
-          if (v instanceof Data_Maybe.Nothing) {
+          if (v2 instanceof Data_Maybe.Nothing) {
               return Data_Unit.unit;
           };
-          throw new Error("Failed pattern match at Main line 61, column 3 - line 65, column 16: " + [ v.constructor.name ]);
+          throw new Error("Failed pattern match at Main line 71, column 3 - line 75, column 16: " + [ v2.constructor.name ]);
       };
   };
   var main = function __do() {
@@ -1580,7 +1580,7 @@ var PS = {};
       if (v instanceof Data_Maybe.Nothing) {
           return Data_Unit.unit;
       };
-      throw new Error("Failed pattern match at Main line 70, column 3 - line 74, column 21: " + [ v.constructor.name ]);
+      throw new Error("Failed pattern match at Main line 83, column 3 - line 87, column 21: " + [ v.constructor.name ]);
   };
   exports["elementToHTMLInputElement"] = elementToHTMLInputElement;
   exports["getElementBySelector"] = getElementBySelector;

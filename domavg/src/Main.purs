@@ -20,7 +20,7 @@ import DOM.Event.EventTarget (addEventListener, eventListener)
 import DOM.Event.Types (Event, EventType(EventType))
 import Unsafe.Coerce as U
 
-
+-- Needed in order to use the `value` function  
 elementToHTMLInputElement :: Element -> HTMLInputElement
 elementToHTMLInputElement = U.unsafeCoerce
 
@@ -36,6 +36,10 @@ getElementBySelector selector =
       Nothing -> pure Nothing
     pure result
       
+{-
+  Given a selector that identifies an HTML input field, return its
+  value as a `Maybe Number`
+-}
 getNumericValue :: forall e. String -> Eff (dom :: DOM, console :: CONSOLE | e) (Maybe Number)
 getNumericValue id =
   do
@@ -47,10 +51,15 @@ getNumericValue id =
           str <- (value (elementToHTMLInputElement inputElement))
           pure (fromString str)
       Nothing -> pure Nothing
-    
+  
+{-
+  Handle click on the Calculate button by:
+  * getting values from the two input fields
+  * calculating the average
+  * showing the result in the `<span id="#output">`
+-}
 respondToClick :: forall e. Event -> Eff (console :: CONSOLE, dom :: DOM | e) Unit
 respondToClick evt = do
-  textSpan <- getElementBySelector "#output"
   value1 <- getNumericValue "#input1"
   value2 <- getNumericValue "#input2"
   let avg = lift2 (/) (lift2 (+) value1 value2) (Just 2.0)
@@ -58,12 +67,16 @@ respondToClick evt = do
         case avg of
           Just result -> (show result)
           Nothing -> ""
+  textSpan <- getElementBySelector "#output"
   case textSpan of
     Just tspan ->
       setTextContent avgText tspan
     Nothing ->
       pure unit
 
+{-
+  Add event listener to the Calculate button
+-}
 main :: forall e. Eff (console :: CONSOLE, dom :: DOM | e) Unit
 main = do
   button <- getElementBySelector "#calculate"
